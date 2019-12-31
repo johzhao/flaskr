@@ -8,6 +8,7 @@ from wtforms.validators import DataRequired
 class SummaryForm(FlaskForm):
     scan = SubmitField('Re-Scan')
     continue_ = SubmitField('Continue')
+    export = SubmitField('Export JSON')
 
 
 class FontOcrForm(FlaskForm):

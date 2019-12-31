@@ -1,6 +1,8 @@
+import json
 import os
+from io import BytesIO
 
-from flask import redirect
+from flask import redirect, send_file
 from flask import render_template
 from flask import session
 from flask import url_for
@@ -35,6 +37,13 @@ def _scan():
     db.session.commit()
 
 
+def _export_json() -> dict:
+    result = {}
+    for row in db.session.query(FontRecord.code, FontRecord.text).filter(FontRecord.text != '').all():
+        result[row[0]] = row[1]
+    return result
+
+
 @font_ocr.route('/summary', methods=['GET', 'POST'])
 def summary():
     form = SummaryForm()
@@ -45,6 +54,12 @@ def summary():
 
         if form.continue_.data:
             return redirect(url_for('font_ocr.next_'))
+
+        if form.export.data:
+            content = _export_json()
+            json_str = json.dumps(content, ensure_ascii=False, sort_keys=True)
+            file = BytesIO(json_str.encode('utf-8'))
+            return send_file(file, mimetype='application/json', as_attachment=True, attachment_filename='output.json')
 
     done = db.session.query(func.count(FontRecord.id)).filter(FontRecord.text != '').scalar()
     total = db.session.query(func.count(FontRecord.id)).scalar()
