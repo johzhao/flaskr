@@ -12,6 +12,6 @@ class SummaryForm(FlaskForm):
 
 
 class FontOcrForm(FlaskForm):
-    code = HiddenField('Code', validators=[DataRequired()])
+    id = HiddenField('Id', validators=[DataRequired()])
     text = StringField('Text', validators=[DataRequired()])
     submit = SubmitField('Submit')

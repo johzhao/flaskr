@@ -50,7 +50,7 @@ def summary():
     if form.validate_on_submit():
         if form.scan.data:
             _scan()
-            return redirect(url_for('font_ocr.next_'))
+            return redirect(url_for('font_ocr.summary'))
 
         if form.continue_.data:
             return redirect(url_for('font_ocr.next_'))
@@ -70,12 +70,12 @@ def summary():
 def next_():
     form = FontOcrForm()
     if form.validate_on_submit():
-        session['font_code'] = form.code.data
+        session['font_id'] = form.id.data
         session['font_text'] = form.text.data
         return redirect(url_for('font_ocr.next_'))
 
-    if 'font_code' in session:
-        record = db.session.query(FontRecord).filter(FontRecord.code == session['font_code']).one()
+    if 'font_id' in session:
+        record = db.session.query(FontRecord).filter(FontRecord.id == session['font_id']).one()
         record.text = session['font_text']
         db.session.commit()
 
