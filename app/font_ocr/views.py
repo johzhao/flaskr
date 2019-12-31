@@ -81,7 +81,7 @@ def next_():
 
     record = db.session.query(FontRecord).filter(FontRecord.text == '').first()
     if record is not None:
-        form.code.data = record.code
+        form.id.data = record.id
         form.text.data = record.text
         return render_template('./font_ocr/next.html', form=form,
                                image_file=url_for('static', filename=os.path.join('font_ocr', f'{record.code}.png')))
