@@ -27,9 +27,8 @@ def _scan():
         if not item.endswith('.png'):
             continue
 
-        name, _ = os.path.splitext(item)
         record = FontRecord()
-        record.code = name
+        record.code, _ = os.path.splitext(item)
         records.append(record)
 
     FontRecord.query.delete()
@@ -78,6 +77,8 @@ def next_():
         record = db.session.query(FontRecord).filter(FontRecord.id == session['font_id']).one()
         record.text = session['font_text']
         db.session.commit()
+        session.pop('font_id')
+        session.pop('font_text')
 
     record = db.session.query(FontRecord).filter(FontRecord.text == '').first()
     if record is not None:
