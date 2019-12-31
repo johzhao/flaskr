@@ -19,4 +19,7 @@ def create_app(config_name: str) -> Flask:
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    from .font_ocr import font_ocr as font_ocr_blueprint
+    app.register_blueprint(font_ocr_blueprint, url_prefix='/font_ocr')
+
     return app

@@ -13,6 +13,7 @@ class Config:
 class DevConfig(Config):
     ENV = 'development'
     DEBUG = True
+    SECRET_KEY = 'a secret key'
     SQLALCHEMY_DATABASE_URI = 'mysql://root:root@localhost:3306/test'
 
 
