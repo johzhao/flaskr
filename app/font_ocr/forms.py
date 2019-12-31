@@ -5,6 +5,11 @@ from wtforms.fields import SubmitField
 from wtforms.validators import DataRequired
 
 
+class SummaryForm(FlaskForm):
+    scan = SubmitField('Re-Scan')
+    continue_ = SubmitField('Continue')
+
+
 class FontOcrForm(FlaskForm):
     code = HiddenField('Code', validators=[DataRequired()])
     text = StringField('Text', validators=[DataRequired()])
