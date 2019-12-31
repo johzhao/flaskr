@@ -11,7 +11,7 @@ from app import db
 config_name = os.environ.get('SERVER_CONFIG', 'default')
 app = create_app(config_name)
 manager = Manager(app)
-migrate = Migrate(app)
+migrate = Migrate(app, db)
 
 
 def make_context():

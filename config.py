@@ -13,7 +13,7 @@ class Config:
 class DevConfig(Config):
     ENV = 'development'
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://localhost:3306/test'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:root@localhost:3306/test'
 
 
 class ProdConfig(Config):
